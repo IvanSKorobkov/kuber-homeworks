@@ -1,0 +1,73 @@
+```
+ivan@microk8s:~/.kube$ kubectl describe pods --insecure-skip-tls-verify nginx-deploy-6c8dbfcb7f-h2szk 
+Name:             nginx-deploy-6c8dbfcb7f-h2szk
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             microk8s/192.168.0.5
+Start Time:       Mon, 11 Dec 2023 16:47:22 +0000
+Labels:           app=nginx
+                  pod-template-hash=6c8dbfcb7f
+Annotations:      cni.projectcalico.org/containerID: 4c19aba2f0fd944629450fc94b3be7dbf6f844dda678850415a6cdefc7f80046
+                  cni.projectcalico.org/podIP: 10.1.128.215/32
+                  cni.projectcalico.org/podIPs: 10.1.128.215/32
+Status:           Running
+IP:               10.1.128.215
+IPs:
+  IP:           10.1.128.215
+Controlled By:  ReplicaSet/nginx-deploy-6c8dbfcb7f
+Init Containers:
+  check-nginx:
+    Container ID:  containerd://1b55a367938e8551da3c0bf9e15222d6378155e6f8f62d6cb719cfaaad286327
+    Image:         busybox
+    Image ID:      docker.io/library/busybox@sha256:1ceb872bcc68a8fcd34c97952658b58086affdcb604c90c1dee2735bde5edc2f
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+    Args:
+      until nslookup nginx-svc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for nginx; sleep 2; done;
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Mon, 11 Dec 2023 16:47:27 +0000
+      Finished:     Mon, 11 Dec 2023 16:49:15 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-27wsf (ro)
+Containers:
+  nginx:
+    Container ID:   containerd://53ff6302fbed602caf853150a322081594a81edbcaefccae051f9f8f5688cb4c
+    Image:          nginx:1.14.2
+    Image ID:       docker.io/library/nginx@sha256:f7988fb6c02e0ce69257d9bd9cf37ae20a60f1df7563c3a2a6abe24160306b8d
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 11 Dec 2023 16:49:16 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-27wsf (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-27wsf:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:                      <none>
+```
